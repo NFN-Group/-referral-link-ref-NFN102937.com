@@ -383,20 +383,6 @@
   </div>
 
  <script>
-  
-// ✅ RUN IMMEDIATELY WHEN PAGE LOADS
-(function(){
-  const urlParams = new URLSearchParams(window.location.search);
-  const ref = urlParams.get("ref");
-
-  if (ref) {
-    localStorage.setItem("referredBy", ref);
-    console.log("✅ Referral saved:", ref);
-  } else {
-    console.log("❌ No referral in URL");
-  }
-})();
-
 function showMsg(text, success=false){    
   let msg = document.createElement("div");    
   msg.className = "msg " + (success ? "success" : "error");    
@@ -446,8 +432,6 @@ const registerPage = document.getElementById('registerPage');
 const loginPage = document.getElementById('loginPage');    
 document.getElementById('toLogin').addEventListener('click', ()=>{registerPage.classList.add('hidden'); loginPage.classList.remove('hidden');});    
 document.getElementById('toRegister').addEventListener('click', ()=>{loginPage.classList.add('hidden'); registerPage.classList.remove('hidden');});    
-
-console.log("🔥 Referral before saving:", localStorage.getItem("referredBy"));
 
 const firebaseConfig = {
   apiKey: "AIzaSyADLqkYrgJH6FPpyRiVnFoBCBgch1Eoz2E",
@@ -499,7 +483,7 @@ db.collection("users").doc(user.uid).set({
   email: email.value,      
   createdAt: firebase.firestore.FieldValue.serverTimestamp(),
   referralCode: referralCode, // Unique code for this user
- referredBy: referredByValue ? referredByValue : null // Track who referred this user
+  referredBy: localStorage.getItem("referredBy") || null // Track who referred this user
 });
       const referredBy = localStorage.getItem("referredBy");
 
@@ -675,6 +659,12 @@ localStorage.setItem('userProfile', JSON.stringify({
 });
 </script>
     <script>
+const params = new URLSearchParams(window.location.search);
+const referrer = params.get('ref');
+
+if (referrer) {
+  localStorage.setItem('referredBy', referrer);
+}
     // Check if user arrived with a referral link
 const urlParams = new URLSearchParams(window.location.search);
 const ref = urlParams.get("ref");
