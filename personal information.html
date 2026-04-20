@@ -673,7 +673,7 @@ if (topBack) {
 
       const payload = { bankName, accountName: accName, accountNumber: accNum, savedAt: new Date().toISOString() };
       localStorage.setItem(BANK_KEY, JSON.stringify(payload));
-      showMsg('Bank card saved and locked', 'success');
+      showMsg('Bank card saved', 'success');
 
       if (bankSelect) bankSelect.disabled = true;
       if (accountNameInput) accountNameInput.setAttribute('readonly', 'readonly');
