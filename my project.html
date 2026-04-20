@@ -960,14 +960,30 @@ const pages=document.querySelectorAll('.page');
 
 navItems.forEach(item=>{
   item.addEventListener('click',()=>{
+
+    // 🔥 Redirect pages
+    if(item.dataset.tab === "level"){
+      window.location.href = "level.html";
+      return;
+    }
+
+    if(item.dataset.tab === "team"){
+      window.location.href = "team management.html";
+      return;
+    }
+
+    // ✅ Normal tabs
     navItems.forEach(i=>i.classList.remove('active'));
     item.classList.add('active');
+
     tabs.forEach(tab=>tab.style.display='none');
     document.getElementById(item.dataset.tab).style.display='block';
+
     pages.forEach(p=>p.classList.remove('active'));
   });
 });
  
+   
     // Open Team Management page
 document
   .querySelector('.nav-item[data-tab="team"]')
